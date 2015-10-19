@@ -1,0 +1,68 @@
+Import into mongo
+
+mongoimport --db test --collection liverpool --drop --file "d:\Dropbox\Dropbox\Learning DS\Python\udacity\data_wrangling\liverpool_england.osm.json"
+
+Use the Variety script from https://github.com/variety/variety to get a structure
+
+bin\mongo test --eval "var collection = 'liverpool'" variety.js > struct.txt
+
+My timestamp is a string - change it to a proper date format:
+d:\mongodb\bin\mongo test --eval "db.liverpool.find().forEach(function(doc){doc.created.timestamp = new ISODate(doc.created.timestamp);db.liverpool.save(doc)});" 
+
+Ref: post by webDEVILopers at http://stackoverflow.com/questions/6475987/importing-date-datatype-using-mongoimport
+Sample top results:
+
+
++--------------------------------------------------------------------------------------------------+
+| key                                     | types         | occurrences | percents                 |
+| --------------------------------------- | ------------- | ----------- | ------------------------ |
+| _id                                     | ObjectId      |     1436842 | 100.00000000000000000000 |
+| created                                 | Object        |     1436842 | 100.00000000000000000000 |
+| created.changeset                       | String        |     1436842 | 100.00000000000000000000 |
+| created.timestamp                       | String        |     1436842 | 100.00000000000000000000 |
+| created.uid                             | String        |     1436842 | 100.00000000000000000000 |
+| created.user                            | String        |     1436842 | 100.00000000000000000000 |
+| created.version                         | String        |     1436842 | 100.00000000000000000000 |
+| id                                      | String        |     1436842 | 100.00000000000000000000 |
+| type                                    | String        |     1436842 | 100.00000000000000000000 |
+| pos                                     | Array         |     1194832 |  83.15681195287999116772 |
+| node_refs                               | Array         |      241626 |  16.81646277043683213037 |
+| building                                | String        |      181364 |  12.62240385512116169764 |
+| source                                  | String        |       91789 |   6.38824588924878344898 |
+| highway                                 | String        |       43917 |   3.05649472941353339550 |
+| name                                    | String        |       32922 |   2.29127489313369192558 |
+| building:levels                         | String        |       30308 |   2.10934813987898461818 |
+| address                                 | Object,String |       17129 |   1.19212829246361118329 |
+| address.street                          | String        |       16687 |   1.16136638544808690199 |
+| address.housenumber                     | String        |       16246 |   1.13067407550725818055 |
+| address.postcode                        | String        |       14258 |   0.99231509101209458557 |
+| created_by                              | String        |       12656 |   0.88082057734949281702 |
+| address.state                           | String        |       10431 |   0.72596708615143490384 |
+| address.country                         | String        |       10312 |   0.71768503426263985379 |
+| natural                                 | String        |        9782 |   0.68079858467388898458 |
+| source:name                             | String        |        9484 |   0.66005865641455363502 |
+| address.city                            | String        |        8419 |   0.58593777186357298703 |
+| naptan:AtcoCode                         | String        |        5140 |   0.35772896393618786037 |
+| naptan:Street                           | String        |        5100 |   0.35494508094835758305 |
+| naptan:Landmark                         | String        |        5050 |   0.35146522721356976415 |
+| naptan:verified                         | String        |        5035 |   0.35042127109313342403 |
+| naptan:Indicator                        | String        |        5011 |   0.34875094130043526874 |
+| naptan:CommonName                       | String        |        4999 |   0.34791577640408616334 |
+| naptan:Bearing                          | String        |        4912 |   0.34186083090555535735 |
+| naptan:NaptanCode                       | String        |        4876 |   0.33935533621650815217 |
+| landuse                                 | String        |        4873 |   0.33914654499242086194 |
+| naptan:Notes                            | String        |        4859 |   0.33817218594668030374 |
+| naptan:ShortCommonName                  | String        |        4848 |   0.33740661812502698025 |
+| amenity                                 | String        |        4800 |   0.33406595853963066967 |
+| postal_code                             | String        |        4096 |   0.28506961795381818847 |
+| oneway                                  | String        |        3542 |   0.24651283857236913621 |
+| service                                 | String        |        3214 |   0.22368499807216102315 |
+| naptan:PlusbusZoneRef                   | String        |        2960 |   0.20600734109943891204 |
+| ref                                     | String        |        2478 |   0.17246155109608432565 |
+| surface                                 | String        |        2293 |   0.15958609227736939018 |
+| foot                                    | String        |        2142 |   0.14907693399831017933 |
+
+
+
+
+
